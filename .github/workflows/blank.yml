@@ -56,15 +56,11 @@ jobs:
 
       - name: Collect artifact
         run: |
-          mkdir -p artifacts
-          mv mindustry/server/build/libs/server-release.jar artifacts/server-${RELEASE_VERSION}.jar
+          mkdir -p artifact
+          mv mindustry/server/build/libs/server-release.jar artifact/server-${RELEASE_VERSION}.jar
 
       - name: Release
-        uses: softprops/action-gh-release@v2.2.2
+        uses: actions/upload-artifact@v4.6.2
         with:
-          repository: ankando/server
-          token: ${{ secrets.PUBLISH_TOKEN }}
-          tag_name: ${{ env.RELEASE_TAG }}
           name: ${{ env.RELEASE_VERSION }}
-          files: artifacts/*
-          prerelease: true
+
