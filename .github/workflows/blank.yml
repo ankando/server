@@ -57,7 +57,7 @@ jobs:
       - name: Collect artifact
         run: |
           mkdir artifacts
-          mv work/desktop/build/libs/Mindustry.jar artifacts/MindustryX-${{env.RELEASE_VERSION}}-Desktop.jar
+          mv mindustry/desktop/build/libs/Mindustry.jar artifacts/MindustryX-${{env.RELEASE_VERSION}}-Desktop.jar
           mv mindustry/server/build/libs/server-release.jar artifact/server-${RELEASE_VERSION}.jar
 
       - name: Release
