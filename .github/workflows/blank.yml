@@ -52,7 +52,7 @@ jobs:
       - name: Build server
         run: |
           cd mindustry
-          ./gradlew -Pbuildversion=$RELEASE_VERSION server:dist
+          ./gradlew -Pbuildversion=$149 server:dist
 
       - name: Collect artifact
         run: |
