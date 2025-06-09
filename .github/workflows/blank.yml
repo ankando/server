@@ -39,7 +39,7 @@ jobs:
         run: |
           git clone https://github.com/Anuken/Mindustry.git mindustry
           cd mindustry
-          git checkout f4891f4738d4bbfc4b45042500a7d6b166181f63
+          git checkout f21429f3f1c2b6be996fb9415661323705abc431
 
       - name: Apply patches
         run: |
