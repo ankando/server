@@ -1,7 +1,7 @@
 From 09b35ecdd6aa4baf27e63cbeb60ee3d54bcf5426 Mon Sep 17 00:00:00 2001
 From: ankando <i@ity.moe>
 Date: Thu, 5 Jun 2025 01:29:53 +0800
-Subject: [PATCH] Update ConstructBlock.java
+Subject: [PATCH 1/2] Update ConstructBlock.java
 
 ---
  .../world/blocks/ConstructBlock.java          | 25 +++++++++++++++----
@@ -92,3 +92,55 @@ index 3e53462cf1c..d09b65f644c 100644
              pathfinder.updateTile(tile);
          }
  
+
+From 1858757572cba07a3f5e0897f99febcc6ffd8b75 Mon Sep 17 00:00:00 2001
+From: ankando <i@ity.moe>
+Date: Tue, 10 Jun 2025 20:28:39 +0800
+Subject: [PATCH 2/2] Update ConstructBlock.java
+
+---
+ core/src/mindustry/world/blocks/ConstructBlock.java | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
+
+diff --git a/core/src/mindustry/world/blocks/ConstructBlock.java b/core/src/mindustry/world/blocks/ConstructBlock.java
+index d09b65f644c..8c028c7ba94 100644
+--- a/core/src/mindustry/world/blocks/ConstructBlock.java
++++ b/core/src/mindustry/world/blocks/ConstructBlock.java
+@@ -369,13 +369,9 @@ public void deconstruct(Unit builder, @Nullable CoreBuild core, float amount){
+                         int used = totalCost - itemsLeft[i] + refundedItems[i];
+                         int target = Mathf.round(used * state.rules.deconstructRefundMultiplier);
+                         int remaining = target - refundedItems[i];
++                        Log.err(String.valueOf(remaining));
+                         if(requirements[i].item.unlockedNowHost()){
+-                            if(remaining >= 0){
+-                                core.items.add(requirements[i].item, Mathf.clamp(remaining, 0, core.storageCapacity - core.items.get(requirements[i].item)));
+-                            } else {
+-                                int toRemove = Math.min(-remaining, core.items.get(requirements[i].item));
+-                                core.items.remove(requirements[i].item, toRemove);
+-                            }
++                            core.items.add(requirements[i].item, Mathf.clamp(remaining, 0, core.storageCapacity - core.items.get(requirements[i].item)));
+                         }
+ 
+                         refundedItems[i] = target;
+@@ -488,6 +484,7 @@ public void write(Writes write){
+                     write.f(accumulator[i]);
+                     write.f(totalAccumulator[i]);
+                     write.i(itemsLeft[i]);
++                    write.i(refundedItems[i]);
+                 }
+             }
+         }
+@@ -504,11 +501,13 @@ public void read(Reads read, byte revision){
+                 accumulator = new float[acsize];
+                 totalAccumulator = new float[acsize];
+                 itemsLeft = new int[acsize];
++                refundedItems = new int[acsize];
+                 for(int i = 0; i < acsize; i++){
+                     accumulator[i] = read.f();
+                     totalAccumulator[i] = read.f();
+                     if(revision >= 1){
+                         itemsLeft[i] = read.i();
++                        refundedItems[i] = read.i();
+                     }
+                 }
+             }
