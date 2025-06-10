@@ -52,12 +52,11 @@ jobs:
       - name: Build server
         run: |
           cd mindustry
-          ./gradlew -Pbuildversion=$1149 server:dist desktop:dist
+          ./gradlew -Pbuildversion=$1149 server:dist
 
       - name: Collect artifact
         run: |
           mkdir artifacts
-          mv mindustry/desktop/build/libs/Mindustry.jar artifacts/MindustryX-${{env.RELEASE_VERSION}}-Desktop.jar
           mv mindustry/server/build/libs/server-release.jar artifacts/server-${RELEASE_VERSION}.jar
 
       - name: Release
