@@ -39,7 +39,7 @@ jobs:
         run: |
           git clone https://github.com/Anuken/Mindustry.git mindustry
           cd mindustry
-          git checkout f4891f4738d4bbfc4b45042500a7d6b166181f63
+          git checkout 732b7624e8f435ccf3caa46104854c07d2674df7
 
       - name: Apply patches
         run: |
@@ -52,7 +52,7 @@ jobs:
       - name: Build server
         run: |
           cd mindustry
-          ./gradlew -Pbuildversion=$1149 server:dist
+          ./gradlew server:dist
 
       - name: Collect artifact
         run: |
